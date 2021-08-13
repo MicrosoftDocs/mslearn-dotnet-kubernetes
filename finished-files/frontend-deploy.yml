@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pizzafrontend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pizzafrontend
+    spec:
+      containers:
+      - name: pizzafrontend
+        image: [YOUR DOCKER USER NAME]/pizzafrontend
+        ports:
+        - containerPort: 5902
+        env:
+        - name: ASPNETCORE_URLS
+          value: http://*:5902
+        - name: backendUrl
+          value: http://pizzabackend:5900
+  selector:
+    matchLabels:
+      app: pizzafrontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pizzafrontend
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5902
+  selector:
+    app: pizzafrontend

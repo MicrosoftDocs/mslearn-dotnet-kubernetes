@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pizzabackend #default dns name
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pizzabackend
+    spec:
+      containers:
+      - name: pizzabackend
+        image: [YOUR DOCKER USER NAME]/pizzabackend:latest
+        ports:
+        - containerPort: 5900
+        env:
+        - name: ASPNETCORE_URLS
+          value: http://*:5900
+  selector:
+    matchLabels:
+      app: pizzabackend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pizzabackend
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5900
+  selector:
+    app: pizzabackend
