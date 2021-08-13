@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: pizzabackend
-        image: msoucoup/pizzabackend:latest
+        image: [YOUR DOCKER USER NAME]/pizzabackend:latest
         ports:
         - containerPort: 5900
         env:
