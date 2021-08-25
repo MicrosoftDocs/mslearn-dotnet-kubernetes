@@ -12,14 +12,14 @@ spec:
     spec:
       containers:
       - name: pizzafrontend
-        image: [YOUR DOCKER USER NAME]/pizzafrontend
+        image: [YOUR DOCKER USERNAME]/pizzafrontend
         ports:
-        - containerPort: 5902
+        - containerPort: 80
         env:
         - name: ASPNETCORE_URLS
-          value: http://*:5902
+          value: http://*:80
         - name: backendUrl
-          value: http://pizzabackend:5900
+          value: http://pizzabackend
   selector:
     matchLabels:
       app: pizzafrontend
@@ -31,6 +31,6 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 5902
+  - port: 80
   selector:
     app: pizzafrontend
